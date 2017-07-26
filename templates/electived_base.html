@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>已选课程</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../dist/js/jquery-1.4.min.js"></script>
+    <link href=" {% static "css/layout.css"%}" rel="stylesheet">
+</head>
+<body>
+    <div class="index_top">
+        <img style="margin-left: -100px;" src={% static "img/headline.png"%}>
+        <div class="ctrl">
+            <ul>
+                <li class="help">
+                    <a href="{% url 'help' %}">帮助</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">退出</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav nav-tabs" role="tablist" style="margin-top:7px;font-size:17px;">
+            <li style="margin-left:10px;margin-top:10px">
+                <script type="text/javascript">
+                    var mydate = new Date()
+                    var myyear = mydate.getFullYear();
+                    var mymonth = mydate.getMonth()+1;
+                    var myday = mydate.getDate();
+                    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+                    document.write(myyear+"年"+mymonth+"月"+myday+"日"+" "+weekday[mydate.getDay()]);
+                </script>
+            </li>
+            <li style="margin-left: 589px;"><a href="{% url 'index' %}">首页</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">选课中心<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url 'professional' %}">专业课选课</a></li>
+                    <li><a href="{% url 'selective' %}">选修课选课</a></li>
+                </ul>
+            </li>
+            <li class="active"><a href="{% url 'electived' %}">已选课程</a></li>
+            <li><a href="{% url 'timetable' %}">我的课表</a></li>
+            <li><a href="{% url 'score' %}" >成绩查询</a></li>
+        </ul>
+    </div>
+    <div id="container">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info" style="text-align: center;">学生已选课程信息列表</li>
+        </ul>
+        <table class="table  table-bordered" style="width: 918px;margin: 0 auto;">
+            <tr>
+                <th width="160px;">课程代码</th>
+                <th width="300px;">课程名称</th>
+                <th width="127px;">课程性质</th>
+                <th width="100px;">地点</th>
+                <th width="127px;">学分</th>
+                <th width="127px;">学时</th>
+                <th width="77px;">退选确认</th>
+            </tr>
+            {% for ele in all_ele %}
+            <form method="post">
+                {% csrf_token %}
+                <tr>
+                    <td>
+                        <input type="text" id="course_id" name="course_id" value="{{ ele.course.course_number }}" readonly="readonly" style="text-align: center;margin-top: 4px;">
+                    </td>
+                    <td>{{ ele.course.course_name }}</td>
+                    <td>{% ifequal ele.course.nature 'compulsory ' %}专业课{% else %}选修课{% endifequal %}</td>
+                    <td>{{ ele.course.place }}</td>
+                    <td>{{ ele.course.credit }}</td>
+                    <td>{{ ele.course.hour }}</td>
+                    <td>
+                        <button class="btn btn-info" type="submit" value="submit">退选</button>
+                    </td>
+                </tr>
+            </form>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

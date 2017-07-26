@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>选课通知</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="{% static "css/layout.css"%}" rel="stylesheet">
+</head>
+<body>
+    <div class="index_top">
+        <img style="margin-left: -100px;" src="{% static "img/headline.png" %}">
+        <div class="ctrl">
+            <ul>
+                <li class="help">
+                    <a href="{% url 'help' %}">帮助</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">退出</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav nav-tabs" role="tablist" style="margin-top:7px;font-size:17px;">
+            <li style="margin-left:10px;margin-top:10px">
+                <script type="text/javascript">
+                    var mydate = new Date()
+                    var myyear = mydate.getFullYear();
+                    var mymonth = mydate.getMonth()+1;
+                    var myday = mydate.getDate();
+                    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+                    document.write(myyear+"年"+mymonth+"月"+myday+"日"+" "+weekday[mydate.getDay()]);
+                </script>
+            </li>
+            <li style="margin-left: 589px;"><a href="{% url 'index' %}">首页</a></li>
+            <li>
+                <a class="dropdown-toggle" data-toggle="dropdown">选课中心<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url 'professional' %}">专业课选课</a></li>
+                    <li><a href="{% url 'selective' %}">选修课选课</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'electived' %}">已选课程</a></li>
+            <li><a href="{% url 'timetable' %}">我的课表</a></li>
+            <li><a href="{% url 'score' %}" >成绩查询</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1 class="notice-header">选课通知</h1>
+        <div class="notice-list">
+            <ul>
+                {% for message in all_mes.object_list %}
+                    <li style="margin-top: 10px;">
+                        <div class="notice-font"><a href="{% url 'detail' message.id %}" style="color: black;text-decoration:none;">{{ message.title }}<div style="margin-left: 750px;margin-top:-20px;font-size: 15px;">{{message.add_time}}</div></a></div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="pagelist">
+        <nav>
+            <ul class="pagination">
+                {% if all_mes.has_previous %}
+                    <li><a href="?{{ all_mes.previous_page_number.querystring }}" class="prev">上一页</a></li>
+                {% endif %}
+
+                {% for page in all_mes.pages %}
+                    {% if page %}
+                        {% ifequal page all_mes.number %}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}<span class="sr-only">(current)</span></a></li>
+                        {% else %}
+                            <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% endif %}
+                {% endfor %}
+                {% if all_mes.has_next %}
+                    <li><a href="?{{ all_mes.next_page_number.querystring }}">下一页</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

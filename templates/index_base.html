@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>选课系统-首页</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="{% static "css/layout.css"%}" rel="stylesheet">
+</head>
+<body>
+    <div class="index_top">
+        <img style="margin-left: -100px;" src="{% static "img/headline.png"%}">
+        <div class="ctrl">
+            <ul>
+                <li class="help">
+                    <a href="{% url 'help' %}">帮助</a>
+
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">退出</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav nav-tabs" role="tablist" style="margin-top:7px;font-size:17px;">
+            <li style="margin-left:10px;margin-top:10px">
+                <script type="text/javascript">
+                    var mydate = new Date()
+                    var myyear = mydate.getFullYear();
+                    var mymonth = mydate.getMonth()+1;
+                    var myday = mydate.getDate();
+                    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+                    document.write(myyear+"年"+mymonth+"月"+myday+"日"+" "+weekday[mydate.getDay()]);
+                </script>
+            </li>
+            <li class="active" style="margin-left: 589px;"><a href="{% url 'index' %}">首页</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">选课中心<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url 'professional' %}">专业课选课</a></li>
+                    <li><a href="{% url 'selective' %}">选修课选课</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'electived' %}">已选课程</a></li>
+            <li><a href="{% url 'timetable' %}">我的课表</a></li>
+            <li><a href="{% url 'score' %}" >成绩查询</a></li>
+        </ul>
+    </div>
+    <div id="container">
+        <div class="container_left">
+            <div class="panel panel-info">
+                <div class="panel-heading" style="text-align: center">个人信息</div>
+                <div class="panel-body">
+                    <ul>
+                        <li>姓名：{{ request.user.student_name }}</li>
+                        <li>学号：{{ request.user.username }}</li>
+                    </ul>
+                    <button type="button" class="btn btn-info" style="margin-left: 28px;" onclick="javascript:window.location.href='{% url 'info' %}'">修改信息</button>
+                    <button type="button" class="btn btn-info" style="margin-left: 10px;" onclick="javascript:window.location.href='{% url 'password' %}'">修改密码</button>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading" style="text-align: center">服务公告</div>
+                <div class="panel-body"><b style="font-weight:bold;font-size: 15px">友情提示：</b>
+                    <p style="text-indent:2em">学生登录新教务选课系统的初始账号为个人学号，初始密码为6个0，学生若需更改个人密码点击上方个人信息进行修改。</p><p style="text-indent:2em">为了更好的保证选课操作的流畅性，请使用IE8及以上版本、Chrome(谷歌)、Firefox(火狐)等浏览器，不建议使用IE6、IE7等老版本浏览器。</p>
+                </div>
+            </div>
+        </div>
+        <div class="container_middle">
+            <div class="notice">
+                <img src = "{% static "img/notice.png"%}" width="384" height="42">
+                <a href="{% url 'notice' %}" style="font-size:12px;margin-left:150px;">更多>></a>
+                <div class="notice_text">
+                    <ul>
+                        {% for message in show_mes %}
+                            <li style="font-size: 16px;"><a href="{% url 'detail' message.id %}" style="color: black;text-decoration: none;">{{ message.title }}<div style="margin-left: 400px;margin-top:-21px;">{{message.add_time}}</div></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="course">
+                <img src = "{% static "img/list.png"%}" width="384" height="42">
+                <a href="{% url 'electived' %}" style="font-size:12px;margin-left:150px;">更多>></a>
+                <div class="course_text">
+                    <ul>
+                        {% for course in show_course %}
+                            <div style="float:left;padding-right: 50px;">
+                                <li><img src="{% static "img/course.png" %}"width="80" height="40"></li>
+                                <li style="font-size: 16px;margin-left: 5px;">{{ course.course.course_name }}</a></li>
+                                <li style="font-size: 16px;margin-left: 20px;">{{ course.course.teacher }}</a></li>
+                            </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+            <div class="container_right">
+                <div class="panel panel-info">
+                    <div class="panel-heading" style="text-align: center">日历</div>
+                    <div class="panel-body">
+                        <div class="date">
+                            <SCRIPT LANGUAGE="JavaScript">
+                            var now = new Date();
+                            var month_array = new Array("january","february","march","April","May","June","July","August","September","October","November","December");
+                            document.write("<form name=date_list><table bgcolor=silver><tr><td>");
+                            document.write("<select name=month onchange=change_month(this.options.selectedIndex)>");
+                            for(i=0;i<month_array.length;i++)
+                            {
+                             if (now.getMonth() != i)
+                             {document.write ("<option value="+i+">"+month_array[i]);}
+                             else
+                             {document.write ("<option value="+i+" selected>"+month_array[i]);}
+                            }
+                            document.write("</select>");
+                            document.write("</td><td>");
+                            document.write ("<select name=year onchange=change_year(this.options[this.options.selectedIndex])>");
+                            for(i=1950;i<3000;i++)
+                            {
+                             if ((now.getFullYear())!= i)
+                             {document.write("<option value="+i+">"+i);}
+                             else
+                             {document.write("<option value="+i+" selected>"+i);}
+                            }
+                            document.write("</select></td></tr><tr><td colspan=2><center>");
+                            document.write("<table bgcolor=white border=0 cellspacing = 0 cellpading = 0 width=100%><tr bgcolor=#b0e0e6 align=center>");
+                            document.write("<td><font color=black>一</font></td><td><font color=black>二</td><td><font color=black>三</td><td><font color=black>四</td><td><font color=black>五</td><td ><font color=black>六</td><td ><font color=black>日</td>");
+                            document.write("</tr><tr>");
+                            for(j=0;j<6;j++)
+                            {
+                             for(i=0;i<7;i++)
+                             {
+                               document.write("<td align=center id=d"+i+"r"+j+"></td>")
+                             }
+                             document.write("</tr>");
+                            }
+
+                            document.write("</table>");
+                            document.write("</center></from></td></tr></table>");
+                            var show_date = new Date();
+                            function set_cal(show_date)
+                            {
+                            begin_day = new Date (show_date.getFullYear(),show_date.getMonth(),1);
+                            begin_day_date = begin_day.getDay();
+                            end_day = new Date (show_date.getFullYear(),show_date.getMonth()+1,1);
+                            count_day = (end_day - begin_day)/1000/60/60/24;
+                            input_table(begin_day_date,count_day);
+                            }
+                            set_cal(show_date);
+                            function input_table(begin,count)
+                            {
+                            init();
+                            j=0;
+                            if (begin!=0){i=begin-1;}else{i=6}
+                            for (c=1;c<count+1;c++)
+                            {
+                             colum_name = eval("d"+i+"r"+j);
+                             if ((now.getDate() == c)&&(show_date.getMonth() == now.getMonth())&&(show_date.getFullYear() == now.getFullYear())) {colum_name.style.backgroundColor = "#b0e0e6";colum_name.style.color = "black";};
+                             colum_name.innerText =  c;
+                             i++;
+                             if (i==7){i=0;j++;}
+                            }
+                            }
+
+                            function init()
+                            {
+                            for(j=0;j<6;j++)
+                            {
+                             for(i=0;i<7;i++)
+                             {
+                             colum_name = eval("d"+i+"r"+j);
+                             colum_name.innerText =  "  ";
+                             colum_name.style.backgroundColor ="";
+                             colum_name.style.color ="";
+                             }
+                            }
+                            }
+                            function change_month(sel_month)
+                            {
+                            show_date = new Date(show_date.getFullYear(),sel_month,1);
+                            set_cal(show_date);
+                            }
+
+                            function change_year(sel_year)
+                            {
+                            sel_year = sel_year.value;
+                            show_date = new Date(sel_year,show_date.getMonth(),1);
+                            set_cal(show_date);
+                            }
+                        </script>
+                        </div>
+                    </div>
+                    </div>
+                <div class="pic">
+                    <img src ="{% static "img/stu.jpg"%}"width="180" height="180" style="margin-top:-30px;margin-left:20px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

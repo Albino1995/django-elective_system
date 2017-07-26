@@ -1,0 +1,257 @@
+/* layout.css */
+body {
+    margin:0px;
+    padding:0px;
+    font-family: "微软雅黑","宋体";
+}
+td{
+    width:100px;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration:none;
+}
+.LoginPage{
+    height: 446px;
+}
+.wap {
+    margin: 0 auto;/*主体居中*/
+    width: 955px;
+}
+.top {
+    height: 150px;
+    padding-left: 85px;
+}
+.wapbg {
+    background: url(../img/tpbg.png);
+    height: 446px;
+}
+.middle {
+    background: url(../img/login.png) no-repeat;
+    height: 296px;
+    position: relative;
+    width: 955px;
+}
+.dl {
+    width: 312px;
+    height: 230px;
+    position: absolute;
+    right: 60px;
+    top: 30px;
+}
+.dlti {
+    font-size: 24px;
+    color: #333;
+    position: absolute;
+    top:10px;
+}
+.dlmi {
+    float: left;
+    width: 312px;
+    line-height: 45px;
+    font-size: 17px;
+    color: #333;
+    position: absolute;
+    top: 70px;
+}
+.dl button{
+    height: 55px;
+    width: 55px;
+    line-height: 50px;
+    color: #FFF;
+    background-color: dodgerblue;
+    display: inline-block;
+    font-size: 32px;
+    margin: 40px auto 0px;
+    cursor: pointer;
+    border: 1px solid dodgerblue;
+    float: left;
+    margin-left: -1px;
+}
+.dl button:hover{
+    color:dodgerblue;
+    background:white;
+}
+.end {
+    position: absolute;
+    font-size: 15px;
+    color: #999;
+    float: left;
+    width: 809px;
+    left: 85px;
+    top: 304px;
+}
+.index_top{
+    height: 135px;
+}
+.ctrl {
+    height: 74px;
+    width: 200px;
+    text-align: right;
+    float: right;
+}
+.ctrl ul li.help a {
+    background: url(../img/help.png) left top no-repeat;
+    height:38px;
+    line-height:38px;
+}
+.ctrl ul li a {
+    background: url(../img/exit.png) left top no-repeat;
+    float: left;
+    font-size: 17px;
+    height: 38px;
+    line-height:38px;
+    letter-spacing: 2px;
+    color: black;
+    padding-left: 33px;
+    text-decoration: none;
+}
+#container {
+    float: left;
+    width: 100%;
+    display: inline;
+}
+.container_left{
+    width: 270px;
+    margin-top: 15px;
+    margin-left: 15px;
+    position: relative;
+    float:left;
+}
+.container_middle{
+    width: 665px;
+    position: relative;
+    margin-top: 15px;
+    margin-left: 30px;
+    float:left;
+}
+.notice{
+    height: 250px;
+    position: relative;
+}
+.notice a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+.notice_text{
+    height: 200px;
+    margin-top: 6px;
+    position: relative;
+}
+.course{
+    height: 250px;
+    position: relative;
+}
+.course a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+.course_text{
+    height: 200px;
+    margin-top: 6px;
+    position: relative;
+}
+.container_right{
+    width: 260px;
+    margin-top: 15px;
+    margin-left: 10px;
+    position: relative;
+    float:left;
+}
+.date{
+    width: 159px;
+    height: 164px;
+    margin: 0 auto;
+    position:relative;
+}
+.pic{
+    margin-left: 18px;
+    margin-top: 60px;
+    position:relative;
+}
+.informBody {
+    background: #EEE;
+}
+.w1000 {
+    padding-bottom: 20px;
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.pt15{
+    padding-top: 40px;
+}
+.m-left {
+    width: 100%;
+    float: left;
+    background: #E1E1E1;
+    padding: 10px;
+}
+.model-box {
+    background-color: white;
+    padding: 10px;
+    overflow: hidden;
+    min-height: 400px;
+}
+.timetable_top{
+    position: relative;
+    margin: 0 auto;
+    width: 1306px;
+    margin-top: 12.5px;
+}
+.timetable_mid{
+    position: relative;
+    width:1306px;
+    margin: 0 auto;
+}
+.table tr,th{
+    text-align: center;
+}
+.table td:hover{
+    background-color: lightyellow;
+}
+.notice-header {
+    text-align: center;
+    color: #1FA825;
+    font-size: 28px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    border: 0;
+}
+.notice-list{
+    margin-top: 30px;
+    margin-left: 100px;
+}
+.notice-font{
+    font-size: 16px;
+}
+.pagelist{
+    position: relative;
+    text-align: center;
+    margin-top: 150px;
+}
+.error-mes{
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    font-size: 15px;
+    width: 155px;
+    margin-top: 10px;
+}
+.update_save{
+    float:left;
+    margin-left: 395px;
+    margin-top: 24px;
+}
+.error_page{
+    text-align: center;
+}
+.cont {
+    width: 100%;
+    height: 50%;
+    margin-top:80px;
+    margin-left: -25px;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>欢迎使用选课系统</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="{% static "css/layout.css"%}" rel="stylesheet">
+</head>
+<body>
+    <div class="LoginPage">
+        <div class="wapbg">
+            <div class="wap">
+                <div class="top">
+                    <img style="padding-top: 45px;margin-left: -100px;" src="{% static "img/headline.png"%}">
+                </div>
+                <div class="middle">
+                    <div class="dl">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="dlti" style="margin-top: -10px;">用户登录</div>
+                            <div class="dlmi" style="margin-top: -15px;">
+                                <div class="input-group input-group-lg {% if login_form.errors.username %}errorput{% endif %}" style="margin-left: -5px;margin-top:-5px;">
+                                    <span class="input-group-addon" >用户</span>
+                                     <input type="text" class="form-control" placeholder="Username" name="username" id="username" value="" >
+                                </div>
+                                <div class="input-group input-group-lg {% if login_form.errors.password %}errorput{% endif %}" style="margin-left: -5px;margin-top:10px;">
+                                    <span class="input-group-addon">密码</span>
+                                     <input type="password" class="form-control" placeholder="Password" name="password" id="password" value="" >
+                                </div>
+                                <div class="error-mes">{% for key,error in login_form.errors.items %}{{ error }}{% endfor %}<div style="text-align: center;">{{ msg }}</div></div>
+                            </div>
+                            <button type="submit" value="submit" onclick=""
+                            style="margin-top:175px;margin-left:255px;"><span class="glyphicon glyphicon-arrow-right"></span></button>
+                        </form>
+                    </div>
+                    <div class="end">
+                        © 2016 elective system
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

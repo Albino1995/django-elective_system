@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>{{ all_mes.title }}</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../dist/js/jquery-1.4.min.js"></script>
+    <link href="{% static "css/layout.css"%}" rel="stylesheet">
+</head>
+<body class="informBody">
+    <div class="w1000">
+        <div class="pt15">
+            <div class="m-left">
+                <div class="model-box">
+                    <h3 style="text-align: center;">{{ all_mes.title }}</h3>
+                    <div>{{ all_mes.content }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

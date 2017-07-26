@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>我的课表</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../dist/js/jquery-1.4.min.js"></script>
+    <link href="{% static "css/layout.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div class="index_top">
+        <img style="margin-left: -100px;" src="{% static "img/headline.png" %}">
+        <div class="ctrl">
+            <ul>
+                <li class="help">
+                    <a href="{% url 'help' %}">帮助</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">退出</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav nav-tabs" role="tablist" style="margin-top:7px;font-size:17px;">
+            <li style="margin-left:10px;margin-top:10px">
+                <script type="text/javascript">
+                    var mydate = new Date()
+                    var myyear = mydate.getFullYear();
+                    var mymonth = mydate.getMonth()+1;
+                    var myday = mydate.getDate();
+                    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+                    document.write(myyear+"年"+mymonth+"月"+myday+"日"+" "+weekday[mydate.getDay()]);
+                </script>
+            </li>
+            <li style="margin-left: 589px;"><a href="{% url 'index' %}">首页</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">选课中心<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url 'professional' %}">专业课选课</a></li>
+                    <li><a href="{% url 'selective' %}">选修课选课</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'electived' %}">已选课程</a></li>
+            <li class="active"><a href="{% url 'timetable' %}" >我的课表</a></li>
+            <li><a href="{% url 'score' %}" >成绩查询</a></li>
+        </ul>
+    </div>
+    <div id="container">
+        <div class="timetable_top">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info" style="text-align: center;">
+                    2016-2017学年一学期学生个人课程表
+                </li>
+
+            </ul>
+        </div>
+        <div class="timetable_mid" style="transform: scale(0.9);">
+            <table class="table  table-bordered">
+                <tr>
+                    <th colspan="2" >时间</th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                    <th>星期六</th>
+                    <th>星期日</th>
+                </tr>
+                <tr>
+                    <th rowspan="5"width="40;"><div style="margin-top: 82px;">上午</div></th>
+                    <th width="80px;">第一节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '1'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '1'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '1'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '1'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '1'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '1'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>{% for time in all_time %}
+                            {% ifequal time.lesson '1'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}</td>
+                </tr>
+                <tr>
+                    <th >第二节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '2'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '2'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                         {% for time in all_time %}
+                            {% ifequal time.lesson '2'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                         {% for time in all_time %}
+                            {% ifequal time.lesson '2'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                         {% for time in all_time %}
+                            {% ifequal time.lesson '2'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                         {% for time in all_time %}
+                            {% ifequal time.lesson '2'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                         {% for time in all_time %}
+                            {% ifequal time.lesson '2'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th >第三节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '3'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '3'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '3'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '3'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '3'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '3'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '3'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th >第四节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '4'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '4'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>{% for time in all_time %}
+                            {% ifequal time.lesson '4'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}</td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '4'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '4'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '4'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '4'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th >第五节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '5'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '5'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '5'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '5'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '5'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '5'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '5'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th rowspan="4"><div style="margin-top: 46px;">下午</div></th>
+                    <th>第六节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '6'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '6'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '6'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '6'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '6'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '6'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '6'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>第七节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '7'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '7'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '7'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '7'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '7'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '7'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '7'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>第八节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '8'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '8'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '8'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '8'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '8'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '8'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                    {{ time.course.place }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '8'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>第九节</th>
+                    <td>
+                         {% for time in all_time %}
+                            {% ifequal time.lesson '9'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '9'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '9'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '9'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '9'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '9'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '9'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th rowspan="4"><div style="margin-top: 46px;">晚上</div></th>
+                    <th >第十节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '10'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '10'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '10'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '10'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '10'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '10'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '10'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>第十一节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '11'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '11'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '11'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '11'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '11'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '11'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '11'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>第十二节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '12'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '12'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '12'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '12'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '12'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '12'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '12'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>第十三节</th>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '13'  %}
+                                {% ifequal time.weekday '1'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '13'  %}
+                                {% ifequal time.weekday '2'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '13'  %}
+                                {% ifequal time.weekday '3'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '13'  %}
+                                {% ifequal time.weekday '4'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '13'  %}
+                                {% ifequal time.weekday '5'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '13'  %}
+                                {% ifequal time.weekday '6'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for time in all_time %}
+                            {% ifequal time.lesson '13'  %}
+                                {% ifequal time.weekday '7'  %}
+                                    {{ time.course.course_name }}
+                                {% endifequal %}
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

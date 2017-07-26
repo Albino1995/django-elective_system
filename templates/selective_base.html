@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>选修课选课</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../dist/js/jquery-1.4.min.js"></script>
+    <link href="{% static "css/layout.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div class="index_top">
+        <img style="margin-left: -100px;" src="{% static "img/headline.png" %}">
+        <div class="ctrl">
+            <ul>
+                <li class="help">
+                    <a href="{% url 'help' %}">帮助</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">退出</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav nav-tabs" role="tablist" style="margin-top:7px;font-size:17px;">
+            <li style="margin-left:10px;margin-top:10px">
+                <script type="text/javascript">
+                    var mydate = new Date()
+                    var myyear = mydate.getFullYear();
+                    var mymonth = mydate.getMonth()+1;
+                    var myday = mydate.getDate();
+                    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+                    document.write(myyear+"年"+mymonth+"月"+myday+"日"+" "+weekday[mydate.getDay()]);
+                </script>
+            </li>
+            <li style="margin-left: 589px;"><a href="{% url 'index' %}">首页</a></li>
+            <li class="active">
+                <a class="dropdown-toggle" data-toggle="dropdown">选课中心<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url 'professional' %}">专业课选课</a></li>
+                    <li ><a href="{% url 'selective' %}">选修课选课</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'electived' %}">已选课程</a></li>
+            <li><a href="{% url 'timetable' %}">我的课表</a></li>
+            <li><a href="{% url 'score' %}" >成绩查询</a></li>
+        </ul>
+    </div>
+    <div id="container">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info" style="text-align: center;">选修课选课</li>
+        </ul>
+        <table class="table  table-bordered" style="width:1000px;margin: 0 auto;">
+            <tr>
+                <th width="100px;">课程编号</th>
+                <th width="300px;">课程名称</th>
+                <th width="150px;">教师姓名</th>
+                <th width="150px;">上课地点</th>
+                <th width="150px;">上课时间</th>
+                <th width="100px;">学分</th>
+                <th width="100px;">学时</th>
+                <th width="100px;">余量</th>
+                <th width="100px;">确认选课</th>
+            </tr>
+            {% for selective in all_selective.object_list %}
+            <form method="post">
+                {% csrf_token %}
+                <tr>
+                     <td width="100px;">
+                        <input type="text"  id="course_id" name="course_id" value="{{ selective.course_number }}" readonly="readonly" style="text-align: center;margin-top: 6px;">
+                    </td>
+                    <td width="300px;">{{ selective.course_name }}</td>
+                    <td width="150px;">{{ selective.teacher }}</td>
+                    <td width="150px;">{{ selective.place }}</td>
+                    <td width="150px;">
+                        {% for time in all_time %}
+                            {% ifequal selective.course_id time.course_id %}
+                                星期{{ time.weekday }}第{{ time.lesson }}节;
+                            {% endifequal %}
+                        {% endfor %}
+                    </td>
+                    <td width="100px;">{{ selective.credit }}</td>
+                    <td width="100px;">{{ selective.hour }}</td>
+                    <td width="100px;">{{ selective.content }}</td>
+                    <td width="100px;">
+                        {% if selective.content > 0 %}
+                        <button class="btn btn-info" type="submit" value="submit">选课</button>
+                        {% else %}
+                        <a class="btn btn-info disabled" role="button">已满</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            </form>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="pagelist" style="margin-top: 200px;">
+        <nav>
+            <ul class="pagination">
+                {% if all_selective.has_previous %}
+                    <li><a href="?{{ all_selective.previous_page_number.querystring }}" class="prev">上一页</a></li>
+                {% endif %}
+                {% for page in all_selective.pages %}
+                    {% if page %}
+                        {% ifequal page all_selective.number %}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}<span class="sr-only">(current)</span></a></li>
+                        {% else %}
+                            <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% endif %}
+                {% endfor %}
+                {% if all_selective.has_next %}
+                    <li><a href="?{{ all_selective.next_page_number.querystring }}">下一页</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>
